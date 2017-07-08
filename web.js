@@ -1,4 +1,5 @@
 var express = require('express');
+var mysql = require('mysql');
 var fs = require('fs');
 var app = express();
 
@@ -25,13 +26,49 @@ app.get('/', function(req, res){
 
 app.get('/line/:arg1', function(request, response) {
 	var lineId = request.params.arg1;
-	
-	// get line data from database.
-	
-	// ...
-	
-	var data = "test test test: line Id is: " + lineId;
-	response.send(data);
+	console.log('1');
+	var connection = mysql.createConnection({     
+	  host     : 'localhost',       
+	  user     : 'root',               
+	  password : 'root',        
+	  port: '8889',
+	  database: 'att',
+	}); 
+	console.log('2');
+	connection.connect(function(err){
+	    if(err){        
+	        console.log('[query] - :'+err);
+	        var data = [];
+	        response.send(data);
+	        return;
+	    }
+	    console.log('[connection connect]  succeed!');
+	});  
+
+	connection.query('SELECT id, name, points FROM travel WHERE id = ' + lineId, function(err, rows, fields) { 
+	    if (err) {
+	        console.log('[query] - :'+err);
+	        var data = [];
+	        response.send(data);
+	        return;
+	    }
+	    console.log('The id is: ', rows[0].id);  
+
+	    var data = JSON.stringify({ 
+		    id: rows[0].id, 
+		    name: rows[0].name, 
+		    points: rows[0].points
+		});
+
+	    response.send(data);
+	});  
+
+	connection.end(function(err){
+	    if(err){        
+	        return;
+	    }
+	      console.log('[connection end] succeed!');
+	});
 });
 
 
