@@ -2,9 +2,10 @@
   "name": "PersonalWeb",
   "version": "1.0.0",
   "dependencies": {
+    "aws-sdk": "*",
+    "body-parser": "^1.17.2",
     "express": "*",
-    "less": "*",
-    "aws-sdk": "*"
+    "less": "*"
   },
   "engines": {
     "node": "latest",
