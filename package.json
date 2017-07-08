@@ -4,7 +4,8 @@
   "dependencies": {
     "body-parser": "*",
     "express": "*",
-    "less": "*"
+    "less": "*",
+    "mysql": "*"
   },
   "engines": {
     "node": "latest",
