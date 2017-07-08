@@ -31,12 +31,14 @@
       	</div>
     </div>
     
+    <input id="locationSearch" class="controls" type="text" placeholder="Search Box">
+    
     <div class="container">
 		<div class="form-group">
 		  <!-- <span class="input-group-addon" id="basic-addon1">@</span> -->
 		  <input id="start" type="text" class="form-control" placeholder="From" aria-describedby="basic-addon1">
-		  <input id="end" type="text" class="form-control" placeholder="To" aria-describedby="basic-addon1">
-		  <input id="locationSearch" type="text" class="form-control" placeholder="Search location:" aria-describedby="basic-addon1">
+		  <input id="end" type="text" class="form-control" placeholder="To" aria-describedby="basic-addon1"><!-- 
+		  <input id="locationSearch" type="text" class="form-control" placeholder="Search location:" aria-describedby="basic-addon1"> -->
 		  <button type="submit" class="btn btn-default" onclick="initMap()">Load Map</button>
 		  <button type="submit" class="btn btn-default" onclick="submit()">Submit</button>
 		  <button type="submit" class="btn btn-default" onclick="searchLocation()">Search</button>
@@ -55,8 +57,9 @@
 	
 	
 	<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC5H1OyVzoaI0nVdGPpmoDGrjK436Rpzg&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC5H1OyVzoaI0nVdGPpmoDGrjK436Rpzg&libraries=places&callback=initMap">
     </script>
+    
 	
 </body>
 
