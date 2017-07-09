@@ -5,7 +5,20 @@ var app = express();
 var pg = require('pg');
 var url = require('url')
 var bodyParser = require('body-parser')
+//var ShareDB = require('sharedb'); // sharejs supporting Operational Transformation
+//var WebSocketJSONStream = require('websocket-json-stream');
+//
+//// OT section
+//var shareDbOptions = {
+//		
+//}
+//var share = new ShareDB(shareDbOptions);
+//
+//var stream = new WebSocketJSONStream(ws);
+//share.listen(stream);
 
+
+// Postgres configuration section
 const postgres_connection_string = process.env.DATABASE_URL || "postgres://xdpngdomkvcfzw:784df11e58a29b09a56934adcfb06b844826201836bab0a446f48cd5b78ee3c9@ec2-54-243-252-91.compute-1.amazonaws.com:5432/da3shana9mdpvp";
 const params = url.parse(postgres_connection_string);
 const auth = params.auth.split(':');

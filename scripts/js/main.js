@@ -81,8 +81,16 @@ function initMap() {
 		map.fitBounds(bounds);
 		
 		points.push(place);
-
+		
+		addPointToList(place);
 	});
+}
+
+function addPointToList(place) {
+	var placeName = place.name;
+	var id = place.place_id;
+	$("#sortList").append('<li id=' + id + '>' + placeName + '</li>');
+
 }
 
 // submit points to Google Map API to get route.
@@ -115,6 +123,8 @@ function submitService() {
 			directionsDisplay.setDirections(result);
 		}
 	});
+	
+	// save points[] to db
 }
 
 // 
@@ -125,9 +135,10 @@ function saveLine() {
 	$.post("line/save", {
 		id : -1,
 		name : "test",
-		points : "{'point':'1'}"
+		points : JSON.stringify(points)
 	}, function(data) {
 		console.log(data);
+		$("#searchTripIdInput").val(data.rows[0].id);
 	});
 
 }
@@ -156,7 +167,13 @@ $( document ).ready(function() {
 function loadTrip () {
 	var tripId = $("#searchTripIdInput").val();
 	$.get("line/" + tripId, function(data) {
-		console.log(date);
+		console.log(data);
 		
+		// put into points[]
+		points = JSON.parse(data.rows[0].points);
+		// then just call submitService();
+		submitService();
 	});
 }
+
+

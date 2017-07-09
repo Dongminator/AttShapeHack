@@ -7,7 +7,9 @@
     "less": "*",
     "mysql": "*",
     "pg": "*",
-    "url": "*"
+    "url": "*",
+    "sharedb": "*",
+    "websocket-json-stream": "*"
   },
   "engines": {
     "node": "latest",
