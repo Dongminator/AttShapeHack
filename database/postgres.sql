@@ -2,6 +2,7 @@
 
 -- how to use postgres:
 -- in terminal, navigate to AttShapeHack folder. 
+-- export psql to path: export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 -- type heroku pg:psql to connect to heroku postgres console
 -- once in the postgres console, type \connect da3shana9mdpvp; to connect the database
 -- type \q to quit heroku postgres console

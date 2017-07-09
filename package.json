@@ -6,7 +6,7 @@
     "express": "*",
     "less": "*",
     "mysql": "*",
-    "pg":"*",
+    "pg": "*",
     "url": "*"
   },
   "engines": {

@@ -119,6 +119,7 @@ function submitService() {
 
 // 
 function saveLine() {
+	
 	console.log("saving data...");
 
 	$.post("line/save", {
@@ -155,7 +156,7 @@ $( document ).ready(function() {
 function loadTrip () {
 	var tripId = $("#searchTripIdInput").val();
 	$.get("line/" + tripId, function(data) {
-		$(".result").html(data);
-		alert("Load was performed.");
+		console.log(date);
+		
 	});
 }
