@@ -74,7 +74,7 @@ app.post('/line/save', function(req, res) {
     		console.log(result);
     		res.send(result);
     	});
-	  }else{
+	  } else {
         console.log("getting existing travel info...");
         pool.query('UPDATE travel SET name=($1), points=($2) WHERE id=($3)', [name, points, id], function(err, result) {
     		if(err) {
