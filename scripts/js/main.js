@@ -15,20 +15,24 @@ function initMap() {
 			lat : -34.397,
 			lng : 150.644
 		},
-		scrollwheel : false,
 		zoom : 8
 	});
 	directionsDisplay.setMap(map);
 
-	// Location search box
-	
+	// <input> for location search auto-complete
 	var input = document.createElement("input");
 	input.type = "text";
+	input.id = "searchInput";
+	input.className = "form-control";
+	input.style.width = "50%";
+	input.style['margin-top'] = "6px";
 	
+//	$(input).css({top:'10px'}); // make a little space on top
 	
 	var searchBox = new google.maps.places.SearchBox(input);
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+	map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
+	
 	// Bias the SearchBox results towards current map's viewport.
 	map.addListener('bounds_changed', function() {
 		searchBox.setBounds(map.getBounds());
@@ -125,4 +129,33 @@ function saveLine() {
 		console.log(data);
 	});
 
+}
+
+
+function initSortList() {
+	// make list sortable
+	$("#sortList").sortable({
+//		change: function( event, ui ) {
+//			console.log("changed");
+//		},
+		deactivate: function( event, ui ) {
+			// refresh google route if there is one.
+		}
+	});
+	
+	// add sort listener 
+	
+}
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+    initSortList();
+});
+
+function loadTrip () {
+	var tripId = $("#searchTripIdInput").val();
+	$.get("line/" + tripId, function(data) {
+		$(".result").html(data);
+		alert("Load was performed.");
+	});
 }

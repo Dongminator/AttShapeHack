@@ -3,10 +3,33 @@ var mysql = require('mysql');
 var fs = require('fs');
 var app = express();
 var pg = require('pg');
+var url = require('url')
 
-//pg.defaults.ssl = true;
-//pg.connect(process.env.DATABASE_URL, function(err, client) {
-//  if (err) throw err;
+const postgres_connection_string = process.env.DATABASE_URL || "postgres://xdpngdomkvcfzw:784df11e58a29b09a56934adcfb06b844826201836bab0a446f48cd5b78ee3c9@ec2-54-243-252-91.compute-1.amazonaws.com:5432/da3shana9mdpvp";
+const params = url.parse(postgres_connection_string);
+const auth = params.auth.split(':');
+const config = {
+	user : auth[0],
+	password : auth[1],
+	host : params.hostname,
+	port : params.port,
+	database : params.pathname.split('/')[1],
+	ssl : true
+};
+
+var pool = new pg.Pool(config);
+
+pool.query('SELECT * from travel', function(err, result) {
+	if(err) {
+		console.log(err);
+	}
+	console.log(result);
+});
+//pg.connect(postgres_connection_string, function(err, client) {
+//  if (err) {
+//	  console.log(err);
+//  }
+//  
 //  console.log('Connected to postgres! Getting schemas...');
 //
 //  client
@@ -34,6 +57,7 @@ app.get('/', function(req, res){
 		res.end(file);
 	});
 });
+
 
 app.get('/line/:arg1', function(request, response) {
 	var lineId = request.params.arg1;
