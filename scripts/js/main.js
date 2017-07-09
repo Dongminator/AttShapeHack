@@ -3,7 +3,7 @@ var directionsService;
 var map;
 
 var points = [];
-
+var gm_markers = [];
 // initialize map, location search service, location listener.
 function initMap() {
 	console.log("initializing map...");
@@ -38,7 +38,7 @@ function initMap() {
 		searchBox.setBounds(map.getBounds());
 	});
 
-	var markers = [];
+	
 	searchBox.addListener('places_changed', function() {
 		console.log("z");
 		var places = searchBox.getPlaces();
@@ -64,7 +64,7 @@ function initMap() {
 		};
 
 		// Create a marker for each place.
-		markers.push(new google.maps.Marker({
+		gm_markers.push(new google.maps.Marker({
 			map : map,
 			icon : icon,
 			title : place.name,
@@ -90,7 +90,6 @@ function addPointToList(place) {
 	var placeName = place.name;
 	var id = place.place_id;
 	$("#sortList").append('<li id=' + id + '>' + placeName + '</li>');
-
 }
 
 // submit points to Google Map API to get route.
@@ -129,18 +128,18 @@ function submitService() {
 
 // 
 function saveLine() {
-	
-	console.log("saving data...");
-
+	var id = $("#searchTripIdInput").val();
+	if (Number.isInteger(id) && id > 0) {
+		id = currentVal
+	}
 	$.post("line/save", {
-		id : -1,
+		id : id,
 		name : "test",
 		points : JSON.stringify(points)
 	}, function(data) {
 		console.log(data);
 		$("#searchTripIdInput").val(data.rows[0].id);
 	});
-
 }
 
 
@@ -152,11 +151,26 @@ function initSortList() {
 //		},
 		deactivate: function( event, ui ) {
 			// refresh google route if there is one.
+			var sortedArray = $( "#sortList" ).sortable( "toArray" );
+			reorderPoints(sortedArray);
 		}
 	});
 	
 	// add sort listener 
 	
+}
+
+function reorderPoints(orderedIds){
+	var newPoints = [];
+	for (var i = 0; i < orderedIds.length; i++) {
+		for (var j = 0; j < points.length; j++) {
+			if (orderedIds[i] == points[j].place_id) {
+				newPoints.push(points[j]);  // insert item into arr at position i
+				continue;
+			}
+		}
+	}
+	points = newPoints;
 }
 
 $( document ).ready(function() {
@@ -171,8 +185,21 @@ function loadTrip () {
 		
 		// put into points[]
 		points = JSON.parse(data.rows[0].points);
+		
 		// then just call submitService();
 		submitService();
+		
+		// clear all map markers
+		for (var i = 0; i < gm_markers.length; i++) {
+			gm_markers[i].setMap(null);
+		}
+		gm_markers = [];
+		
+		$("#sortList").empty(); // clear list
+		
+		for (var i = 0; i < points.length; i++) {
+			addPointToList(points[i]);
+		}
 	});
 }
 

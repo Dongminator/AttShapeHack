@@ -31,7 +31,7 @@ body {
 	position: absolute;
 	top: 6px; /* adjust value accordingly */
 	right: 10px; /* adjust value accordingly */
-	background-color: grey;
+	background-color: #82b5f5;;
 	opacity: 0.8;
 	color: black;
 }

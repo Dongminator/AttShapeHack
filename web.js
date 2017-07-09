@@ -81,16 +81,15 @@ app.post('/line/save', function(req, res) {
     	});
 	  } else {
         console.log("getting existing travel info...");
-        pool.query('UPDATE travel SET name=($1), points=($2) WHERE id=($3)', [name, points, id], function(err, result) {
+        pool.query('UPDATE travel SET name=($1), points=($2) WHERE id=($3) RETURNING id', [name, points, id], function(err, result) {
     		if(err) {
     			console.log(err);
     		}
     		console.log('--------------------------UPDATE----------------------------');     
     		console.log('UPDATE ID:',id);        
     		console.log('-----------------------------------------------------------------\n\n');  
-    		res.send("id: " + id);
     		
-    		console.log(result);
+    		res.send(result);
     	});
 	  }
 });
