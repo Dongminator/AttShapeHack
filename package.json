@@ -5,7 +5,8 @@
     "body-parser": "*",
     "express": "*",
     "less": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "pg":"*"
   },
   "engines": {
     "node": "latest",

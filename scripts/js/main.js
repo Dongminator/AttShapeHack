@@ -4,9 +4,9 @@ var map;
 
 var points = [];
 
-
+// initialize map, location search service, location listener.
 function initMap() {
-	console.log("b");
+	console.log("initializing map...");
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsService = new google.maps.DirectionsService();
 	// Create a map object and specify the DOM element for display.
@@ -21,7 +21,11 @@ function initMap() {
 	directionsDisplay.setMap(map);
 
 	// Location search box
-	var input = document.getElementById('locationSearch');
+	
+	var input = document.createElement("input");
+	input.type = "text";
+	
+	
 	var searchBox = new google.maps.places.SearchBox(input);
 	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -77,48 +81,21 @@ function initMap() {
 	});
 }
 
-function searchPlaceListener () {
-	
-}
-
-function submit() {
-	console.log("submit");
-	submitService();
-	//	$.get( "https://maps.googleapis.com/maps/api/distancematrix/json?origins=75+9th+Ave+New+York,+NY&destinations=Bridgewater+Commons,+Commons+Way,+Bridgewater,+NJ|The+Mall+At+Short+Hills,+Morris+Turnpike,+Short+Hills,+NJ|Monmouth+Mall,+Eatontown,+NJ|Westfield+Garden+State+Plaza,+Garden+State+Plaza+Boulevard,+Paramus,+NJ|Newport+Centre+Mall,+Jersey+City,+NJ&departure_time=1541202457&traffic_model=best_guess&key=AIzaSyCC5H1OyVzoaI0nVdGPpmoDGrjK436Rpzg", function( data ) {
-	//		console.log(data);
-	//	});
-
-	//	headers: {
-	//        'Access-Control-Allow-Origin': '*'
-	//    },
-
-}
-
+// submit points to Google Map API to get route.
 function submitService() {
-	console.log("aa");
-
 	var waypoints = [];
 	if (points.length > 2) {
 		for (var i = 1; i < points.length - 1; i++) {
-			
-			
 			waypoints.push({ 
 				stopover: true, 
 				location: { placeId: points[i].place_id } 
 			});
 		}
-
 	}
-	var start = document.getElementById('start').value;
-	var end = document.getElementById('end').value;
 
 	var request = {
-		origin: {
-			placeId: points[0].place_id
-		},
-		destination : {
-			placeId: points[points.length-1].place_id
-		},
+		origin: { placeId: points[0].place_id },
+		destination : { placeId: points[points.length-1].place_id },
 		waypoints : waypoints,
 		travelMode : 'DRIVING',
 		drivingOptions : {
@@ -136,13 +113,7 @@ function submitService() {
 	});
 }
 
-// search location and place a marker on the map
-function searchLocation() {
-
-	var locationSearch = document.getElementById('locationSearch').value;
-
-}
-
+// 
 function saveLine() {
 	console.log("saving data...");
 

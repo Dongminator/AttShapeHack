@@ -5,23 +5,35 @@ html {
 
 body {
 	height: 100%;
-	padding-top: 70px;
+	position:relative;
 }
-
-
-.starter-template {
-	padding: 0px 15px;
-}
-
-
-#map {
-	width:100%; 
-	height: 100%;
-	padding-bottom : -70px;
-}
-
-
 
 .container {
-	width:100%; height:100%;
+	width: 100%;
 }
+#main-content {
+	width:100%;
+	position:absolute;
+	top:55px;
+	bottom:0;
+    left:0;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#map {
+	height: 100%;
+	width:100%; 
+}
+
+#pointList
+{
+	color: black;
+    position: absolute;
+    top: 80px;  /* adjust value accordingly */
+    right: 10px;  /* adjust value accordingly */
+    background-color: grey;
+    opacity:0.8;
+}
+
+
