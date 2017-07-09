@@ -20,14 +20,6 @@ const config = {
 
 var pool = new pg.Pool(config); // new version
 
-//pool.query('SELECT * from travel', function(err, result) {
-//	if(err) {
-//		console.log(err);
-//	}
-//	console.log(result);
-//});
-
-
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
